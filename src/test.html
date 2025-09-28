@@ -1,11 +1,184 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link href="./output.css" rel="stylesheet" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Responsive Company Banner</title>
+    <style>
+      /* --- Basic reset --- */
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      html,
+      body {
+        height: 100%;
+        font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto,
+          "Helvetica Neue", Arial;
+      }
+
+      .embed-wrapper {
+        margin-top: -4em;
+        margin-bottom: -4em;
+      }
+
+      /* tablet */
+      @media (max-width: 1024px) {
+        .embed-wrapper {
+          margin-top: -3em;
+          margin-bottom: -3em;
+        }
+      }
+
+      /* mobile */
+      @media (max-width: 640px) {
+        .embed-wrapper {
+          margin-top: -1em;
+          margin-bottom: -1em;
+        }
+      }
+
+      /* --- Banner container --- */
+      .banner {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 1rem;
+        padding: clamp(0.75rem, 2.5vw, 1.5rem);
+        background: linear-gradient(135deg, #0f172a 0%, #0ea5a7 100%);
+        color: white;
+        box-shadow: 0 8px 24px rgba(2, 6, 23, 0.45);
+      }
+
+      /* --- Logo / initial chip --- */
+      .logo {
+        display: inline-grid;
+        place-items: center;
+        width: clamp(48px, 8vw, 72px);
+        height: clamp(48px, 8vw, 72px);
+        border-radius: 12px;
+        background: rgba(255, 255, 255, 0.12);
+        flex-shrink: 0;
+        font-weight: 700;
+        font-size: clamp(1rem, 3.2vw, 1.6rem);
+        letter-spacing: 0.02em;
+        color: #fff;
+        -webkit-backdrop-filter: blur(4px);
+        backdrop-filter: blur(4px);
+      }
+
+      /* --- Company name block --- */
+      .brand {
+        display: flex;
+        flex-direction: column;
+        gap: 0.125rem;
+        min-width: 0;
+      }
+
+      .brand .company {
+        font-size: clamp(1.25rem, 5vw, 2.25rem);
+        font-weight: 800;
+        line-height: 1;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+
+      .brand .tagline {
+        font-size: clamp(0.8rem, 1.6vw, 1rem);
+        opacity: 0.95;
+        font-weight: 500;
+      }
+
+      /* --- Optional right-side area (CTA) --- */
+      .actions {
+        display: flex;
+        gap: 0.5rem;
+        align-items: center;
+      }
+
+      /* --- Animations --- */
+      @keyframes cta-pop {
+        0% {
+          opacity: 0;
+          transform: scale(0.85) translateY(8px);
+        }
+        60% {
+          opacity: 1;
+          transform: scale(1.05) translateY(0);
+        }
+        100% {
+          transform: scale(1);
+        }
+      }
+
+      @keyframes pulse {
+        0%,
+        100% {
+          transform: scale(1);
+          box-shadow: 0 6px 16px rgba(12, 18, 30, 0.25);
+        }
+        50% {
+          transform: scale(1.05);
+          box-shadow: 0 8px 20px rgba(12, 18, 30, 0.35);
+        }
+      }
+
+      .btn {
+        appearance: none;
+        border: none;
+        padding: 0.55rem 0.9rem;
+        border-radius: 10px;
+        font-weight: 700;
+        cursor: pointer;
+        background: white;
+        color: #0b1220;
+        box-shadow: 0 6px 16px rgba(12, 18, 30, 0.25);
+        font-size: 0.9rem;
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+        animation: cta-pop 0.6s ease-out 0.4s both; /* entrance */
+      }
+      .btn:active {
+        transform: translateY(1px) scale(0.98);
+        box-shadow: 0 4px 10px rgba(12, 18, 30, 0.18);
+      }
+      .btn:hover {
+        animation: pulse 0.8s ease-in-out infinite; /* pulse on hover */
+      }
+
+      /* --- Responsive behavior --- */
+      @media (max-width: 520px) {
+        .banner {
+          flex-direction: column;
+          align-items: flex-start;
+        }
+        .actions {
+          width: 100%;
+          justify-content: stretch;
+        }
+        .btn {
+          width: 100%;
+          text-align: center;
+        }
+      }
+    </style>
   </head>
   <body>
-    <h1 class="text-3xl font-extrabold underline text-red-500">Hello world!</h1>
+    <header class="banner" role="banner" aria-label="Company banner">
+      <!-- logo -->
+      <div class="logo" aria-hidden="true">Y</div>
+
+      <!-- brand details -->
+      <div class="brand">
+        <div class="company" title="Your Company">Your Company</div>
+        <div class="tagline">Making something excellent, every day</div>
+      </div>
+
+      <!-- CTA -->
+      <div class="actions" aria-hidden="true">
+        <button class="btn">Get Started</button>
+      </div>
+    </header>
   </body>
 </html>
